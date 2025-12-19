@@ -5,4 +5,4 @@
 <p><strong>Año:</strong> <?= $pelicula['anio'] ?></p>
 <p><strong>Clasificación:</strong> <?= $pelicula['clasificacion'] ?></p>
 
-<a href="index.php">Volver</a>
+<p><a href="index.php">Volver al listado</a></p>

@@ -1,12 +1,12 @@
 <?php
-require_once "app/models/Pelicula.php";
+require_once "../models/Pelicula.php";
 
 class PeliculasController {
 
     public function index() {
         $busqueda = $_GET['buscar'] ?? null;
         $peliculas = Pelicula::listar($busqueda);
-        require "app/views/peliculas/index.php";
+        require "../views/peliculas/index.php";
     }
 
     public function crear() {
@@ -18,8 +18,9 @@ class PeliculasController {
                 $_POST['clasificacion']
             ]);
             header("Location: index.php");
+            exit;
         }
-        require "app/views/peliculas/crear.php";
+        require "../views/peliculas/crear.php";
     }
 
     public function editar() {
@@ -34,13 +35,14 @@ class PeliculasController {
                 $_GET['id']
             ]);
             header("Location: index.php");
+            exit;
         }
-        require "app/views/peliculas/editar.php";
+        require "../views/peliculas/editar.php";
     }
 
     public function ver() {
         $pelicula = Pelicula::obtener($_GET['id']);
-        require "app/views/peliculas/ver.php";
+        require "../views/peliculas/visualizar.php";
     }
 
     public function eliminar() {
@@ -49,7 +51,8 @@ class PeliculasController {
         if ($_POST) {
             Pelicula::eliminar($_GET['id']);
             header("Location: index.php");
+            exit;
         }
-        require "app/views/peliculas/eliminar.php";
+        require "../views/peliculas/eliminar.php";
     }
 }

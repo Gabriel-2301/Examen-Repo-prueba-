@@ -1,5 +1,5 @@
 <?php
-require_once "config/database.php";
+require_once "../app/config/database.php";
 
 class Pelicula {
 
@@ -7,9 +7,7 @@ class Pelicula {
         $db = Database::connect();
 
         if ($busqueda) {
-            $stmt = $db->prepare(
-                "SELECT * FROM peliculas WHERE titulo LIKE ?"
-            );
+            $stmt = $db->prepare("SELECT * FROM peliculas WHERE titulo LIKE ?");
             $stmt->execute(["%$busqueda%"]);
             return $stmt->fetchAll();
         }
@@ -19,9 +17,7 @@ class Pelicula {
 
     public static function obtener($id) {
         $db = Database::connect();
-        $stmt = $db->prepare(
-            "SELECT * FROM peliculas WHERE pelicula_id=?"
-        );
+        $stmt = $db->prepare("SELECT * FROM peliculas WHERE pelicula_id=?");
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
@@ -29,8 +25,7 @@ class Pelicula {
     public static function crear($data) {
         $db = Database::connect();
         $stmt = $db->prepare(
-            "INSERT INTO peliculas(titulo,director,anio,clasificacion)
-             VALUES (?,?,?,?)"
+            "INSERT INTO peliculas(titulo,director,anio,clasificacion) VALUES (?,?,?,?)"
         );
         return $stmt->execute($data);
     }
@@ -38,18 +33,14 @@ class Pelicula {
     public static function actualizar($data) {
         $db = Database::connect();
         $stmt = $db->prepare(
-            "UPDATE peliculas
-             SET titulo=?, director=?, anio=?, clasificacion=?
-             WHERE pelicula_id=?"
+            "UPDATE peliculas SET titulo=?, director=?, anio=?, clasificacion=? WHERE pelicula_id=?"
         );
         return $stmt->execute($data);
     }
 
     public static function eliminar($id) {
         $db = Database::connect();
-        $stmt = $db->prepare(
-            "DELETE FROM peliculas WHERE pelicula_id=?"
-        );
+        $stmt = $db->prepare("DELETE FROM peliculas WHERE pelicula_id=?");
         return $stmt->execute([$id]);
     }
 }
